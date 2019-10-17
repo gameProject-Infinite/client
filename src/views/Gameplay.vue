@@ -1,19 +1,21 @@
 <template>
   <div class="gameplay">
+    <Scoreboard :score="score" style="float: left;"></Scoreboard>
+    <Countdown style="float: right;"></Countdown>
     <b-container class="bv-example-row gameplay-container">
       <b-row>
-        <b-col v-for="i in hiddenMoleRow1Index" :key="i" class="mole-container">{{ i }}
-          <Mole :show="hiddenMole[i]"></Mole>
+        <b-col v-for="i in hiddenMoleRow1Index" :key="i" class="mole-container">
+          <Mole :show="hiddenMole[i]" @addScore="addScore"></Mole>
         </b-col>
       </b-row>
       <b-row>
-        <b-col v-for="i in hiddenMoleRow2Index" :key="i" class="mole-container">{{ i }}
-          <Mole :show="hiddenMole[i]"></Mole>
+        <b-col v-for="i in hiddenMoleRow2Index" :key="i" class="mole-container">
+          <Mole :show="hiddenMole[i]" @addScore="addScore"></Mole>
         </b-col>
       </b-row>
       <b-row>
-        <b-col v-for="i in hiddenMoleRow3Index" :key="i" class="mole-container">{{ i }}
-          <Mole :show="hiddenMole[i]"></Mole>
+        <b-col v-for="i in hiddenMoleRow3Index" :key="i" class="mole-container">
+          <Mole :show="hiddenMole[i]" @addScore="addScore"></Mole>
         </b-col>
       </b-row>
     </b-container>
@@ -22,11 +24,15 @@
 
 <script>
 import Mole from '../components/Mole'
+import Scoreboard from '../components/Scoreboard'
+import Countdown from '../components/Countdown'
 
 export default {
   name: 'Gameplay',
   components: {
-    Mole
+    Mole,
+    Scoreboard,
+    Countdown
   },
   data () {
     return {
@@ -50,7 +56,7 @@ export default {
   methods: {
     addScore () {
       console.log('hit!')
-      this.score++
+      this.score = this.score + 10
     },
     hideShowMole () {
       setInterval(() => {
@@ -60,7 +66,7 @@ export default {
           this.hiddenMole[i] = false
         }
         this.hiddenMole[rand] = !this.hiddenMole[rand]
-      }, 500)
+      }, 700)
     }
   },
   created () {
@@ -70,15 +76,22 @@ export default {
 </script>
 
 <style scoped>
+.gameplay{
+  background-image: url('../assets/grass.png');
+  height: 100%;
+  padding: 30px;
+}
 .gameplay-container {
-  max-width: 800px;
+  max-width: 600px;
+  cursor: url('../assets/hammer.png') 64 64, default;
+  background-image: url('https://image.freepik.com/free-vector/brown-soil-texture-background_1308-20483.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 3%;
 }
 .mole-container {
   height: 200px;
   width: 200px;
 }
-img {
-  height: 150px;
-  width: 150px;
-}
+
 </style>
