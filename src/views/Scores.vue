@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <b-table striped hover :items="formattedScores"></b-table>
+  <div class="score-container">
+    <div class="scoreboard">
+      <b-table striped hover :items="formattedScores"></b-table>
+    </div>
+    <b-button @click="toHome" class="button-done" variant="success">Play Again</b-button>
   </div>
 </template>
 
@@ -26,6 +29,12 @@ export default {
       return scoresArr
     }
   },
+  methods: {
+    toHome () {
+      localStorage.clear()
+      this.$router.push('/')
+    }
+  },
   created () {
     console.log(`ini ${this.scores}`)
   }
@@ -33,5 +42,29 @@ export default {
 </script>
 
 <style>
+.scoreboard {
+  margin-top: 30px;
+  background: #fcadf6;
+  font-size: 30px;
+  max-width: 700px;
+  margin: auto;
+  font-family: 'Fredoka One', cursive;
+}
 
+.score-container {
+  background-image: url('../assets/grass.png');
+  height: 100%;
+  padding: 10px;
+  border: none;
+}
+
+.button-done {
+  font-family: 'Fredoka One', cursive;
+  width: 300px;
+}
+
+.button-done::first-line {
+  font-size: 50px;
+  font-family: 'Fredoka One', cursive;
+}
 </style>
