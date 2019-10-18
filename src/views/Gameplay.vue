@@ -57,12 +57,10 @@ export default {
   },
   methods: {
     addScore () {
-      console.log('hit!')
       this.score = this.score + 10
     },
     hideShowMole () {
       setInterval(() => {
-        console.log('masuk toggle')
         let rand = Math.floor(Math.random() * Math.floor(9))
         for (let i in this.hiddenMole) {
           this.hiddenMole[i] = false
@@ -78,14 +76,19 @@ export default {
       }, 700)
     },
     endgame () {
-      console.log('endgame')
       Swal.fire({
         title: `You got ${this.score}!`,
         confirmButtonText: 'Go to Scoreboard',
         allowOutsideClick: false
       })
         .then((value) => {
-          Swal(`The returned value is: ${value}`)
+          console.log('then swal')
+          let payload = {
+            roomId: this.$route.params.id,
+            score: this.score
+          }
+          this.$store.dispatch('setScore', payload)
+          this.$router.push('/scores')
         })
         .catch(err => {
           Swal(err)

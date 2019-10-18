@@ -13,7 +13,8 @@ export default new Vuex.Store({
     rooms: [],
     dataMembers: [],
     master: false,
-    startGame: false
+    startGame: false,
+    memberScores: []
   },
   mutations: {
     ENTERING_ROOM (state, payload) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     START_GAME (state, payload) {
       state.startGame = payload
+    },
+    SET_MEMBER_SCORES (state, payload) {
+      state.memberScores = payload
     }
   },
   actions: {
@@ -126,6 +130,31 @@ export default new Vuex.Store({
       db.collection('room').doc(payload)
         .update({
           startGame: true
+        })
+    },
+    setScore ({ commit }, payload) {
+      console.log('masuk set score', payload)
+      let player = {
+        name: localStorage.getItem('name'),
+        id: localStorage.getItem('id'),
+        score: payload.score
+      }
+      console.log(player)
+      db.collection('room')
+        .doc(payload.roomId)
+        .update({
+          memberScores: firebase.firestore.FieldValue.arrayUnion(player)
+        })
+        .then(() => {
+          return db.collection('room').doc(payload.roomId).get()
+        })
+        .then(doc => {
+          console.log('update memberScores')
+          let listScores = doc.data().memberScores
+          commit('SET_MEMBER_SCORES', listScores)
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   },
