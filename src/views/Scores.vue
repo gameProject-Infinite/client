@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     toHome () {
+      localStorage.clear()
       this.$router.push('/')
     }
   },

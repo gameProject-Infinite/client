@@ -115,10 +115,6 @@ export default {
   flex-direction: column
 }
 .board{
-  background: #d8d4d49d;
-  width: 90%;
-  height: 100%;
-  border-radius: 10px;
-  overflow: scroll
+  overflow: scroll;
 }
 </style>
