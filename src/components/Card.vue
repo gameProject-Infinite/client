@@ -5,15 +5,15 @@
         style="max-width: 20rem; color:black;"
         class="m-4 card">
         <p>{{total}} players</p>
-        <b-button @click="toGame(id)" variant="primary" v-if="status">Enter Room</b-button>
-        <b-button disabled variant="primary" v-else>Full</b-button>
+        <b-button @click="toGame(id)" variant="primary" v-if="status && !startGame">Enter Room</b-button>
+        <b-button disabled variant="primary" v-else>Close</b-button>
     </b-card>
     </div>
 </template>
 
 <script>
 export default {
-  props: ['total', 'title', 'id', 'status'],
+  props: ['total', 'title', 'id', 'status', 'startGame'],
   methods: {
     toGame (id) {
       if (this.total < 5) {
