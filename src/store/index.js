@@ -39,7 +39,7 @@ export default new Vuex.Store({
     START_GAME (state, payload) {
       state.startGame = payload
     },
-    SET_MEMBER_SCORES (state, payload) {
+    SET_SCORESLIST (state, payload) {
       state.memberScores = payload
     }
   },
@@ -121,9 +121,11 @@ export default new Vuex.Store({
           let payload = doc.data().members
           let master = doc.data().master
           let start = doc.data().startGame
+          let scorelist = doc.data().memberScores
           commit('DATA_MEMBERS', payload)
           commit('MASTER_ROOM', master)
           commit('START_GAME', start)
+          commit('SET_SCORESLIST', scorelist)
         })
     },
     startGame ({ commit }, payload) {
@@ -150,8 +152,6 @@ export default new Vuex.Store({
         })
         .then(doc => {
           console.log('update memberScores')
-          let listScores = doc.data().memberScores
-          commit('SET_MEMBER_SCORES', listScores)
         })
         .catch(err => {
           console.log(err)
