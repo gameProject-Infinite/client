@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div class="d-flex justify-content-end px-5" style="width:100vw">
-     <b-button type="submit" variant="warning" class="mx-5"><i class="fas fa-sign-out-alt mr-2" style="color:black"></i>Exit</b-button>
+     <b-button type="submit" @click="exit" variant="warning" class="mx-5"><i class="fas fa-sign-out-alt mr-2" style="color:black"></i>Exit</b-button>
     </div>
     <div class="header">
       <h1 class="pb-2">Room List</h1>
@@ -59,6 +59,10 @@ export default {
         console.log('noooo')
       }
       this.newRoom = ''
+    },
+    exit () {
+      localStorage.clear()
+      this.$router.push('/')
     }
   },
   computed: {
