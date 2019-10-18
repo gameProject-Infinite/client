@@ -47,9 +47,9 @@ export default {
           name: this.newRoom,
           members: [{
             id: localStorage.getItem('id'),
-            name: localStorage.getItem('name'),
-            score: 0
+            name: localStorage.getItem('name')
           }],
+          memberScores: [],
           status: true,
           createdAt: new Date()
         }
