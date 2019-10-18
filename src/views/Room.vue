@@ -1,7 +1,8 @@
 <template>
   <div class="background">
-     <loading :active.sync="isLoading" color="#f2d221" :height="185" :width="210" :can-cancel="false" loader="dots"
-      ></loading>
+    <div class="d-flex justify-content-end px-5" style="width:100vw">
+     <b-button type="submit" variant="warning" class="mx-5"><i class="fas fa-sign-out-alt mr-2" style="color:black"></i>Exit</b-button>
+    </div>
     <div class="header">
       <h1 class="pb-2">Room List</h1>
     <b-form style="width:300px" @submit.prevent="createRoom" class="d-flex">

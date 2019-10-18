@@ -4,7 +4,7 @@
         :title="title"
         style="max-width: 20rem; color:black;"
         class="m-4 card">
-        <p>{{total}} players</p>
+        <p>{{total}} <i class="fas fa-users"></i></p>
         <b-button @click="toGame(id)" variant="primary" v-if="status && !startGame">Enter Room</b-button>
         <b-button disabled variant="primary" v-else>Close</b-button>
     </b-card>
@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .card{
-    width: 265px
+    width: 260px
 }
 
 </style>

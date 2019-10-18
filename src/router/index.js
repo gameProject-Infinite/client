@@ -24,7 +24,14 @@ const routes = [
   {
     path: '/rooms',
     name: 'rooms',
-    component: Room
+    component: Room,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('name') && localStorage.getItem('id')) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
     path: '/rooms/:id',
