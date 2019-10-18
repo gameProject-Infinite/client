@@ -14,7 +14,7 @@ export default {
   name: 'Countdown',
   data () {
     return {
-      seconds: 10
+      seconds: 30
     }
   },
   methods: {
