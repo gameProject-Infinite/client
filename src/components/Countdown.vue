@@ -14,7 +14,7 @@ export default {
   name: 'Countdown',
   data () {
     return {
-      seconds: 60
+      seconds: 10
     }
   },
   methods: {
@@ -23,7 +23,7 @@ export default {
         if (this.seconds) {
           this.seconds--
         } else {
-          console.log('game over')
+          this.$emit('endgame')
         }
       }, 1000)
     }

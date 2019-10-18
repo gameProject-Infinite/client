@@ -1,7 +1,7 @@
 <template>
   <div class="gameplay">
     <Scoreboard :score="score" style="float: left;"></Scoreboard>
-    <Countdown style="float: right;"></Countdown>
+    <Countdown style="float: right;" @endgame="endgame"></Countdown>
     <b-container class="bv-example-row gameplay-container">
       <b-row>
         <b-col v-for="i in hiddenMoleRow1Index" :key="i" class="mole-container">
@@ -67,6 +67,9 @@ export default {
         }
         this.hiddenMole[rand] = !this.hiddenMole[rand]
       }, 700)
+    },
+    endgame () {
+      console.log('endgame')
     }
   },
   created () {
