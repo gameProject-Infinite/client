@@ -52,7 +52,8 @@ export default {
       hiddenMoleRow1Index: [0, 1, 2],
       hiddenMoleRow2Index: [3, 4, 5],
       hiddenMoleRow3Index: [6, 7, 8],
-      audio: new Audio('http://soundbible.com/grab.php?id=1299&type=mp3')
+      audio: new Audio('http://soundbible.com/grab.php?id=1299&type=mp3'),
+      hideShowInterval: ''
     }
   },
   methods: {
@@ -60,7 +61,7 @@ export default {
       this.score = this.score + 10
     },
     hideShowMole () {
-      setInterval(() => {
+      this.hideShowInterval = setInterval(() => {
         let rand = Math.floor(Math.random() * Math.floor(9))
         for (let i in this.hiddenMole) {
           this.hiddenMole[i] = false
@@ -76,6 +77,7 @@ export default {
       }, 700)
     },
     endgame () {
+      clearInterval(this.hideShowInterval)
       Swal.fire({
         title: `You got ${this.score}!`,
         confirmButtonText: 'Go to Scoreboard',
@@ -97,6 +99,9 @@ export default {
   },
   created () {
     this.hideShowMole()
+  },
+  deleted () {
+
   }
 }
 </script>
