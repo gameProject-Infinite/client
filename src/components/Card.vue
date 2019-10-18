@@ -6,6 +6,7 @@
         class="m-4 card">
         <p>{{total}} players</p>
         <b-button @click="toGame(id)" variant="primary" v-if="status">Enter Room</b-button>
+        <b-button disabled variant="primary" v-else>Full</b-button>
     </b-card>
     </div>
 </template>

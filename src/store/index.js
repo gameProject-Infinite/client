@@ -10,8 +10,9 @@ export default new Vuex.Store({
   state: {
     myactiveroom: false,
     player: {},
-    players: [],
-    rooms: []
+    rooms: [],
+    dataMembers: [],
+    master: false
   },
   mutations: {
     ENTERING_ROOM (state, payload) {
@@ -21,14 +22,17 @@ export default new Vuex.Store({
     PLAYER_IN_GAME (state, payload) {
       state.player = payload
     },
-    PLAYERS_IN_ROOM (state, payload) {
-      state.players = payload
-    },
     ROOMS (state, payload) {
       state.rooms = payload
     },
     EMPTYROOMS (state, payload) {
       state.rooms = []
+    },
+    DATA_MEMBERS (state, payload) {
+      state.dataMembers = payload
+    },
+    MASTER_ROOM (state, payload) {
+      state.master = payload
     }
   },
   actions: {
@@ -69,7 +73,6 @@ export default new Vuex.Store({
             db.collection('room').doc(payload.roomId).update({ status: false })
           } else {
             console.log('Successfuly join room')
-            commit('PLAYERS_IN_ROOM', doc.data().members)
             commit('ENTERING_ROOM', payload.roomId)
             commit('PLAYER_IN_GAME', player)
           }
@@ -101,6 +104,16 @@ export default new Vuex.Store({
         commit('ROOMS', rooms)
         rooms = []
       })
+    },
+    getMembers ({ commit }, payload) {
+      db.collection('room').doc(payload)
+        .onSnapshot(doc => {
+          // console.log(doc.data().members, '=========')
+          let payload = doc.data().members
+          let master = doc.data().master
+          commit('DATA_MEMBERS', payload)
+          commit('MASTER_ROOM', master)
+        })
     }
   },
   modules: {
