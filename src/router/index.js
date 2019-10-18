@@ -19,7 +19,15 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "gameplay" */ '../views/Gameplay.vue')
+    component: () => import(/* webpackChunkName: "gameplay" */ '../views/Gameplay.vue'),
+    beforeEnter: (to, from, next) => {
+      if (from.name) {
+        next()
+      } else {
+        next('/')
+        localStorage.clear()
+      }
+    }
   },
   {
     path: '/rooms',
@@ -36,12 +44,32 @@ const routes = [
   {
     path: '/rooms/:id',
     name: 'roomlobby',
-    component: Lobby
+    component: Lobby,
+    beforeEnter: (to, from, next) => {
+      if (from.name) {
+        next()
+      } else {
+        next('/')
+        localStorage.clear()
+      }
+    }
   },
   {
     path: '/scores',
     name: 'scores',
-    component: Scores
+    component: Scores,
+    beforeEnter: (to, from, next) => {
+      if (from.name) {
+        next()
+      } else {
+        next('/')
+        localStorage.clear()
+      }
+    }
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 
