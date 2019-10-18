@@ -89,7 +89,8 @@ export default new Vuex.Store({
             name: room.name,
             members: room.members,
             total: room.members.length,
-            createdAt: new Date(room.createdAt.seconds * 1000)
+            createdAt: new Date(room.createdAt.seconds * 1000),
+            status: room.status
           }
           rooms.push(inforoom)
         })
