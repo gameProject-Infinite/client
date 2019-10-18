@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Room from '../views/Room.vue'
+import Lobby from '../views/Lobby.vue'
+import Temporary from '../views/Temporary.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,16 @@ const routes = [
     path: '/rooms',
     name: 'rooms',
     component: Room
+  },
+  {
+    path: '/rooms/:id',
+    name: 'roomlobby',
+    component: Lobby
+  },
+  {
+    path: '/game/:id',
+    name: 'game',
+    component: Temporary
   }
 ]
 

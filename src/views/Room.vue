@@ -19,14 +19,13 @@
     </b-form>
     </div>
     <div class="board mt-3 d-flex flex-wrap">
-      <Card v-for="(room , index) in rooms" :key="index" :title="room.name" :total="room.total"></Card>
+      <Card v-for="room in rooms" :key="room.id" :id="room.id" :title="room.name" :total="room.total" :status="room.status"></Card>
     </div>
   </div>
 </template>
 
 <script>
 import Card from '../components/Card.vue'
-import db from '../apis/firestore'
 
 export default {
   name: 'rooms',
@@ -37,48 +36,59 @@ export default {
     return {
       newRoom: '',
       isLoading: false,
-      rooms: []
+      myactiveroom: ''
     }
   },
   methods: {
-    fetchRoom () {
-      this.isLoading = true
-      let rooms = []
-      db.collection('room').onSnapshot(querySnapshot => {
-        querySnapshot.forEach(el => {
-          let room = el.data()
-          let id = el.id
-          let inforoom = {
-            id: id,
-            name: room.name,
-            members: room.members,
-            total: room.members.length,
-            createdAt: new Date()
-          }
-          rooms.push(inforoom)
-        })
-        this.rooms = rooms
-        this.isLoading = false
-      })
-    },
     createRoom () {
       if (this.newRoom) {
         let newRoom = {
           master: localStorage.getItem('id'),
           name: this.newRoom,
-          members: [],
-          status: false
+          members: [{
+            id: localStorage.getItem('id'),
+            name: localStorage.getItem('name'),
+            score: 0
+          }],
+          status: true,
+          createdAt: new Date()
         }
         this.$store.dispatch('createRoom', newRoom)
-        this.fetchRoom()
       } else {
         console.log('noooo')
       }
       this.newRoom = ''
     }
   },
+  computed: {
+    activeRoom: {
+      get () {
+        return this.$store.state.myactiveroom
+      },
+      set (value) {
+        console.log(value)
+      }
+    },
+    rooms: {
+      get () {
+        return this.$store.state.rooms
+      },
+      set (value) {
+        console.log(value)
+      }
+    }
+  },
+  watch: {
+    activeRoom () {
+      console.log('berubah')
+      console.log(this.activeRoom)
+      this.$router.push(`/rooms/${this.activeRoom}`)
+    },
+    rooms () {
+    }
+  },
   created () {
-    this.fetchRoom()
+    this.$store.dispatch('fetchRooms')
   }
 }
 </script>
