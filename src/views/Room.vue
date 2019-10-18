@@ -19,7 +19,7 @@
       </div>
     </b-form>
     </div>
-    <div class="board mt-3 d-flex flex-wrap">
+    <div class="board m-auto mt-3 d-flex flex-wrap">
       <Card v-for="room in rooms" :key="room.id" :id="room.id" :title="room.name" :total="room.total" :status="room.status" :startGame="room.startGame"></Card>
     </div>
   </div>
@@ -116,5 +116,11 @@ export default {
 }
 .board{
   overflow: scroll;
+}
+h1 {
+  color: #ffd359;
+  font-size: 55pt;
+  font-family: 'Modak', cursive;
+  -webkit-text-stroke: 4px rgb(29, 29, 29);
 }
 </style>

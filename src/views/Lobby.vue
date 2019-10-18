@@ -76,10 +76,11 @@ export default {
     margin-top: 20px;
     background-color: rgb(255, 255, 255)
   }
-  h1{
-    color: white;
-    font-size: 40pt;
-    font-weight: 900
+  h1 {
+  color: #ffd359;
+  font-size: 55pt;
+  font-family: 'Modak', cursive;
+  -webkit-text-stroke: 4px rgb(29, 29, 29);
   }
   .background{
     height: 100vh;
