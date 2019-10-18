@@ -26,6 +26,7 @@
 import Mole from '../components/Mole'
 import Scoreboard from '../components/Scoreboard'
 import Countdown from '../components/Countdown'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Gameplay',
@@ -50,7 +51,8 @@ export default {
       },
       hiddenMoleRow1Index: [0, 1, 2],
       hiddenMoleRow2Index: [3, 4, 5],
-      hiddenMoleRow3Index: [6, 7, 8]
+      hiddenMoleRow3Index: [6, 7, 8],
+      audio: new Audio('http://soundbible.com/grab.php?id=1299&type=mp3')
     }
   },
   methods: {
@@ -66,10 +68,28 @@ export default {
           this.hiddenMole[i] = false
         }
         this.hiddenMole[rand] = !this.hiddenMole[rand]
+        this.audio.play()
+          .then(_ => {
+            console.log('played')
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }, 700)
     },
     endgame () {
       console.log('endgame')
+      Swal.fire({
+        title: `You got ${this.score}!`,
+        confirmButtonText: 'Go to Scoreboard',
+        allowOutsideClick: false
+      })
+        .then((value) => {
+          Swal(`The returned value is: ${value}`)
+        })
+        .catch(err => {
+          Swal(err)
+        })
     }
   },
   created () {
@@ -86,7 +106,7 @@ export default {
 }
 .gameplay-container {
   max-width: 600px;
-  cursor: url('../assets/hammer.png') 64 64, default;
+  cursor: url('../assets/hammer.png') 30 64, default;
   background-image: url('https://image.freepik.com/free-vector/brown-soil-texture-background_1308-20483.jpg');
   background-repeat: no-repeat;
   background-size: cover;
