@@ -19,11 +19,12 @@ export default {
   },
   methods: {
     runCountdown () {
-      setInterval(() => {
+      let countdownInterval = setInterval(() => {
         if (this.seconds) {
           this.seconds--
         } else {
           this.$emit('endgame')
+          clearInterval(countdownInterval)
         }
       }, 1000)
     }

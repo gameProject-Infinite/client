@@ -4,7 +4,7 @@
       <b-card class="scoreboard-container"
         header="Score"
         header-tag="header"
-        footer="Username"
+        :footer="username"
         footer-tag="footer"
       >
       <div style="font-size: 50px;">
@@ -20,6 +20,14 @@ export default {
   name: 'Scoreboard',
   props: {
     score: Number
+  },
+  data () {
+    return {
+      username: ''
+    }
+  },
+  created () {
+    this.username = localStorage.name
   }
 }
 </script>
