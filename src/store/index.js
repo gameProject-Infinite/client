@@ -12,7 +12,8 @@ export default new Vuex.Store({
     player: {},
     rooms: [],
     dataMembers: [],
-    master: false
+    master: false,
+    startGame: false
   },
   mutations: {
     ENTERING_ROOM (state, payload) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     MASTER_ROOM (state, payload) {
       state.master = payload
+    },
+    START_GAME (state, payload) {
+      state.startGame = payload
     }
   },
   actions: {
@@ -93,7 +97,8 @@ export default new Vuex.Store({
             members: room.members,
             total: room.members.length,
             createdAt: new Date(room.createdAt.seconds * 1000),
-            status: room.status
+            status: room.status,
+            startGame: room.startGame
           }
           rooms.push(inforoom)
         })
@@ -111,8 +116,16 @@ export default new Vuex.Store({
           // console.log(doc.data().members, '=========')
           let payload = doc.data().members
           let master = doc.data().master
+          let start = doc.data().startGame
           commit('DATA_MEMBERS', payload)
           commit('MASTER_ROOM', master)
+          commit('START_GAME', start)
+        })
+    },
+    startGame ({ commit }, payload) {
+      db.collection('room').doc(payload)
+        .update({
+          startGame: true
         })
     }
   },

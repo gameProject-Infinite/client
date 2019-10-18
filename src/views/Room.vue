@@ -19,7 +19,7 @@
     </b-form>
     </div>
     <div class="board mt-3 d-flex flex-wrap">
-      <Card v-for="room in rooms" :key="room.id" :id="room.id" :title="room.name" :total="room.total" :status="room.status"></Card>
+      <Card v-for="room in rooms" :key="room.id" :id="room.id" :title="room.name" :total="room.total" :status="room.status" :startGame="room.startGame"></Card>
     </div>
   </div>
 </template>
